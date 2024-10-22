@@ -1,35 +1,40 @@
 package agh.ics.oop;
-
+import agh.ics.oop.model.MapDirection;
+import agh.ics.oop.model.Vector2d;
 import agh.ics.oop.model.MoveDirection;
+
+
+
 
 public class World {
     public static void main(String[] args){
         MoveDirection[] moves=OptionsParser.modify(args);
-        System.out.println("system wystartowal");
+        System.out.println("Start");
         World.run(moves);
-        System.out.println("system zakonczyl dzialanie");
+        System.out.println("Stop");
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
+        MapDirection direction=MapDirection.EAST;
+        System.out.println(direction.next());
+        System.out.println(direction.previous());
+        System.out.println(direction.toUnitVector());
+
     }
     public static void run(MoveDirection[] args){
-//        System.out.println("zwierzak idzie do przodu");
-//        int i=0;
        for(MoveDirection argument : args ){
-//            System.out.print(argument);
-//            if (i < args.length - 1) {
-//                System.out.print(", ");
-//            }else{
-//                System.out.println(" ");
-//            }
-//            i++;
             String message = switch (argument) {
                 case FORWARD -> "zwierzak idzie do przodu";
                 case BACKWARD -> "zwierzak idzie do tyłu";
                 case RIGHT -> "zwierzak skreca w prawo";
                 case LEFT -> "zwierzak skreca w lewo";
-                default -> "Nieznana komenda";
             };
 
             System.out.println(message);
         }
     }
+
 }
 
