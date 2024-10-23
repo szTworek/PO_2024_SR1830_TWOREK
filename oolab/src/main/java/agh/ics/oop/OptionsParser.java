@@ -15,9 +15,9 @@ public class OptionsParser {
                     case "b" -> MoveDirection.BACKWARD;
                     case "r" -> MoveDirection.RIGHT;
                     case "l" -> MoveDirection.LEFT;
-                    default -> MoveDirection.UNKNOWN;
+                    default -> null;
                 };
-                if (direction!=MoveDirection.UNKNOWN){
+                if (direction!=null){
                     moves[i] = direction;
                     i++;
                 }
