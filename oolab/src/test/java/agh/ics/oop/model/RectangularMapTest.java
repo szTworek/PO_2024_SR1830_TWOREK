@@ -1,6 +1,11 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.OptionsParser;
+import agh.ics.oop.Simulation;
 import org.junit.jupiter.api.Test;
+
+import java.util.Collection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -60,7 +65,7 @@ class RectangularMapTest {
         Animal animal=new Animal();
         map.place(animal);
         //when
-        Animal result=map.objectAt(new Vector2d(2,2));
+        WorldElement result=map.objectAt(new Vector2d(2,2));
         //then
         assertEquals(animal,result);
     }
@@ -69,7 +74,7 @@ class RectangularMapTest {
         //given
         RectangularMap map=new RectangularMap(5,5);
         //when
-        Animal result=map.objectAt(new Vector2d(2,2));
+        WorldElement result=map.objectAt(new Vector2d(2,2));
         //then
         assertEquals(null,result);
     }
@@ -157,6 +162,56 @@ class RectangularMapTest {
         //then
         assertEquals("E",animal1.toString());
     }
+
+    @Test
+    public void gettingElements(){
+        WorldMap map=new GrassField(2);
+        Animal animal1=new Animal();
+        Animal animal2=new Animal(new Vector2d(2,1));
+        //when
+        map.place(animal1);
+        map.place(animal2);
+        //then
+        Collection<WorldElement> receivedCollection = map.getElements();
+
+        assertEquals(receivedCollection.size(), 4);
+        for (WorldElement element : receivedCollection) {
+            if(element instanceof Animal){
+                if(element.getPosition().equals(new Vector2d(2,2))){
+                    assertEquals(animal1,element);
+                }
+                else{
+                    assertEquals(animal2,element);
+                }
+            }
+        }
+
+    }
+
+
+//    @Test
+//    public void correctVisualisation(){
+//        //given
+//        WorldMap map=new RectangularMap(5,5);
+//        map.place(new Animal(new Vector2d(1,1)));
+//        map.place(new Animal(new Vector2d(0,0)));
+//        //when
+//        String visualisation=map.toString();
+//        //then
+//        String expected =
+//                "y\\x  0 1 2 3 4\n" +
+//                "  5: -----------\n" +
+//                "  4: | | | | | |\n" +
+//                "  3: | | | | | |\n" +
+//                "  2: | | | | | |\n" +
+//                "  1: | |N| | | |\n" +
+//                "  0: |N| | | | |\n" +
+//                " -1: -----------";
+//        assertEquals(expected.trim(),visualisation.trim());
+//    }
+
+
+
 
 
 }
