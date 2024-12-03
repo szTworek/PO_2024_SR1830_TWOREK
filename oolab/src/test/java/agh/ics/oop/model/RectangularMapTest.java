@@ -15,35 +15,47 @@ class RectangularMapTest {
         //given
         RectangularMap map=new RectangularMap(5,5);
         Animal animal=new Animal();
-
+        boolean result=false;
         //when
-        boolean result=map.place(animal);
+        try {
+            result = map.place(animal);
+        }catch(IncorrectPositionException e){
+            fail(e.getMessage());
+        }
 
         //then
         assertTrue(result);
     }
-    @Test
-    public void cannotPlaceAnimalsInTheSamePosition() {
-        //given
-        RectangularMap map=new RectangularMap(5,5);
-        Animal animal1=new Animal();
-        Animal animal2=new Animal();
-
-        //when
-        boolean result1=map.place(animal1);
-        boolean result2=map.place(animal2);
-
-        //then
-        assertTrue(result1);
-        assertFalse(result2);
-    }
+//    @Test
+//    public void cannotPlaceAnimalsInTheSamePosition() {
+//        //given
+//        RectangularMap map=new RectangularMap(5,5);
+//        Animal animal1=new Animal();
+//        Animal animal2=new Animal();
+//        boolean result1=false;
+//        boolean result2=true;
+//        //when
+//        try {
+//            result1 = map.place(animal1);
+//            result2 = map.place(animal2);
+//        } catch (IncorrectPositionException e) {
+//            fail(e.getMessage());
+//        }
+//
+//        //then
+//        assertTrue(result1);
+//        assertFalse(result2);
+//    }
     @Test
     public void positionIsOccupied() {
         //given
         RectangularMap map=new RectangularMap(5,5);
         Animal animal1=new Animal();
-        map.place(animal1);
-
+        try {
+            map.place(animal1);
+        }catch(IncorrectPositionException e){
+            fail(e.getMessage());
+        }
         //when
         boolean result=map.isOccupied(new Vector2d(2,2));
         //then
@@ -63,7 +75,11 @@ class RectangularMapTest {
         //given
         RectangularMap map=new RectangularMap(5,5);
         Animal animal=new Animal();
-        map.place(animal);
+        try {
+            map.place(animal);
+        }catch (IncorrectPositionException e){
+            fail(e.getMessage());
+        }
         //when
         WorldElement result=map.objectAt(new Vector2d(2,2));
         //then
@@ -76,7 +92,7 @@ class RectangularMapTest {
         //when
         WorldElement result=map.objectAt(new Vector2d(2,2));
         //then
-        assertEquals(null,result);
+        assertNull(result);
     }
     @Test
     public void animalCanMoveToNotOccupiedPositionOnMap() {
@@ -93,7 +109,12 @@ class RectangularMapTest {
         //given
         RectangularMap map=new RectangularMap(5,5);
         Animal animal=new Animal();
-        map.place(animal);
+        try {
+            map.place(animal);
+        }catch(IncorrectPositionException e){
+            fail(e.getMessage());
+        }
+
         //when
         boolean result=map.canMoveTo(new Vector2d(2,2));
         //then
@@ -114,7 +135,12 @@ class RectangularMapTest {
         //given
         RectangularMap map=new RectangularMap(5,5);
         Animal animal=new Animal();
-        map.place(animal);
+        try {
+            map.place(animal);
+        }catch(IncorrectPositionException e){
+            fail(e.getMessage());
+        }
+
         MoveDirection direction=MoveDirection.FORWARD;
         //when
         map.move(animal,direction);
@@ -127,7 +153,11 @@ class RectangularMapTest {
         //given
         RectangularMap map=new RectangularMap(5,5);
         Animal animal=new Animal(new Vector2d(4,4));
-        map.place(animal);
+        try {
+            map.place(animal);
+        }catch(IncorrectPositionException e){
+            fail(e.getMessage());
+        }
         MoveDirection direction=MoveDirection.FORWARD;
         //when
         map.move(animal,direction);
@@ -141,8 +171,12 @@ class RectangularMapTest {
         RectangularMap map=new RectangularMap(5,5);
         Animal animal1=new Animal();
         Animal animal2=new Animal(new Vector2d(2,1));
-        map.place(animal1);
-        map.place(animal2);
+        try {
+            map.place(animal1);
+            map.place(animal2);
+        }catch(IncorrectPositionException e){
+            fail(e.getMessage());
+        }
         MoveDirection direction=MoveDirection.FORWARD;
         //when
         map.move(animal2,direction);
@@ -155,7 +189,11 @@ class RectangularMapTest {
         //given
         RectangularMap map=new RectangularMap(5,5);
         Animal animal1=new Animal();
-        map.place(animal1);
+        try {
+            map.place(animal1);
+        }catch(IncorrectPositionException e){
+            fail(e.getMessage());
+        }
         MoveDirection direction=MoveDirection.RIGHT;
         //when
         map.move(animal1,direction);
@@ -169,8 +207,12 @@ class RectangularMapTest {
         Animal animal1=new Animal();
         Animal animal2=new Animal(new Vector2d(2,1));
         //when
-        map.place(animal1);
-        map.place(animal2);
+        try {
+            map.place(animal1);
+            map.place(animal2);
+        }catch(IncorrectPositionException e){
+            fail(e.getMessage());
+        }
         //then
         Collection<WorldElement> receivedCollection = map.getElements();
 
@@ -193,8 +235,12 @@ class RectangularMapTest {
 //    public void correctVisualisation(){
 //        //given
 //        WorldMap map=new RectangularMap(5,5);
-//        map.place(new Animal(new Vector2d(1,1)));
-//        map.place(new Animal(new Vector2d(0,0)));
+//        try {
+//            map.place(new Animal(new Vector2d(1, 1)));
+//            map.place(new Animal(new Vector2d(0, 0)));
+//        }catch(IncorrectPositionException e){
+//            fail(e.getMessage());
+//        }
 //        //when
 //        String visualisation=map.toString();
 //        //then

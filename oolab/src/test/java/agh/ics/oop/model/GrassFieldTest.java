@@ -47,9 +47,4 @@ class GrassFieldTest {
         WorldElement element = receivedCollection.iterator().next();
         assertEquals(element,map.objectAt(element.getPosition()));
     }
-    @Test
-    public void animalCanMoveToAFieldWithGrass(){
-
-    }
-
 }
