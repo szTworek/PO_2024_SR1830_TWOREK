@@ -11,6 +11,7 @@ public class GrassField extends AbstractWorldMap implements WorldMap{
     private final Random randomPlace = new Random();
     private final int upperLimit;
 
+
     public GrassField(int fields) {
         grassFieldLimitUR=new Vector2d(0,0);
         upperLimit=1+(int)Math.sqrt(fields*10);
