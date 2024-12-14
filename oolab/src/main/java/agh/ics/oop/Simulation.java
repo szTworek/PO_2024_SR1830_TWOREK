@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import agh.ics.oop.model.*;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class Simulation implements Runnable {
         this.worldMap=worldMap;
         for(Vector2d position: startingPositions){
             try{
+
                 Animal newAnimal = new Animal(position);
                 worldMap.place(newAnimal);
                 animals.add(newAnimal);
@@ -39,6 +41,7 @@ public class Simulation implements Runnable {
 
     public void run() {
         try {
+
             for(int i=0; i<listOfMoves.size(); i++){
 
                     Thread.sleep(500);
@@ -48,6 +51,9 @@ public class Simulation implements Runnable {
                 worldMap.move(animal,listOfMoves.get(i));
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);}
+            throw new RuntimeException(e);
+            }
+        }
+
     }
-}
+//}

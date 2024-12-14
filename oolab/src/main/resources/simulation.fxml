@@ -13,11 +13,11 @@
     <center>
 
         <VBox spacing="10" alignment="CENTER">
-            <Label fx:id="messageLabel" text="opis ruchu" />
+<!--            <Label fx:id="messageLabel" text="opis ruchu" />-->
+            <Label>Moves:</Label>
             <TextField fx:id="textField" promptText="Enter text here" maxWidth="200" />
             <Button fx:id="startButton" text="Start" onAction="#onSimulationStartClicked"/>
-            <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER" />
-            <Label fx:id="infoLabel" text="All animals will be living here!" textAlignment="CENTER"/>
+<!--            <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER" />-->
         </VBox>
 
     </center>

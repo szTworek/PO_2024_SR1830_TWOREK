@@ -9,13 +9,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class SimulationEngine {
-    List<Simulation> simulations= new ArrayList<Simulation>();
+    private List<Simulation> simulations= new ArrayList<Simulation>();
     private final List<Thread> threads = new ArrayList<>();
     private final ExecutorService threadPool = Executors.newFixedThreadPool(4);
 
 
     public SimulationEngine(List<Simulation> simulations) {
         this.simulations = simulations;
+    }
+    public void addSimulation(Simulation simulation) {
+        simulations.add(simulation);
+        threadPool.submit(simulation);
     }
     public void runSync(){
         for(Simulation simulation : simulations){
@@ -36,7 +40,7 @@ public class SimulationEngine {
             thread.join();
         }
         if(!threadPool.awaitTermination(10, TimeUnit.SECONDS)){
-            System.out.println("Przekroczono limit czasu");
+            System.out.println("Time limit exceeded");
             threadPool.shutdownNow();
         }
     }
@@ -45,7 +49,7 @@ public class SimulationEngine {
         for(Simulation simulation: simulations){
             threadPool.submit(simulation);
         }
-        threadPool.shutdown();
+
 
     }
 }

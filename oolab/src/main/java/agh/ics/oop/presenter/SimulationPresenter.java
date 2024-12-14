@@ -6,24 +6,27 @@ import agh.ics.oop.model.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.List;
 
 public class SimulationPresenter implements MapChangeListener{
-
+    private SimulationEngine engine;
     @FXML
     public Button startButton;
     @FXML
     public GridPane mapGrid;
-    private WorldMap map;
+    private AbstractWorldMap map;
 
     @FXML
     private Label infoLabel;
@@ -33,9 +36,13 @@ public class SimulationPresenter implements MapChangeListener{
     private TextField textField;
 
 
-    public void setWorldMap(WorldMap worldMap) {
-
+    public void setWorldMap(AbstractWorldMap worldMap) {
         map = worldMap;
+
+    }
+    public void setEngine(SimulationEngine engine) {
+        this.engine=engine;
+
     }
     public void drawMap(){
         infoLabel.setVisible(false);
@@ -93,13 +100,17 @@ public class SimulationPresenter implements MapChangeListener{
         });
     }
 
-    public void onSimulationStartClicked(ActionEvent actionEvent) {
+    public void onSimulationStartClicked(ActionEvent actionEvent) throws IOException, InterruptedException {
+        AbstractWorldMap map1 = new GrassField(11);
         String[] moves = textField.getText().split(" ");
         java.util.List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(5, 3), new Vector2d(3, 7));
-        Simulation simulation1 = new Simulation(positions, OptionsParser.parse(moves), map);
-        SimulationEngine engine = new SimulationEngine(List.of(simulation1));
 
-        engine.runAsync();
+        NewWindow newWindow= new NewWindow();
+        newWindow.newWindow(map1,engine);
+        Simulation simulation = new Simulation(positions, OptionsParser.parse(moves), map1);
+        engine.addSimulation(simulation);
+
+
     }
     private void clearGrid() {
         mapGrid.getChildren().retainAll(mapGrid.getChildren().get(0)); // hack to retain visible grid lines
